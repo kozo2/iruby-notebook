@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -yq \
     && apt-get clean && cd ~ && \
     git clone --depth=1 https://github.com/zeromq/libzmq && \
     git clone --depth=1 https://github.com/zeromq/czmq && \
-    libzmq && ./autogen.sh && ./configure && make && make install && \
+    cd libzmq && ./autogen.sh && ./configure && make && make install && \
     cd ../czmq && ./autogen.sh && ./configure && make && make install && \
     gem install cztop specific_install && \
     gem specific_install https://github.com/SciRuby/iruby.git && \
