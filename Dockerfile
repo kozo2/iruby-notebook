@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -yq \
     cd czmq && ./configure && make && make install && \
     gem install cztop specific_install && \
     gem specific_install https://github.com/SciRuby/iruby.git && \
-    iruby register
+    iruby register && \
     rm -rf /var/lib/apt/lists/*
 
 # Switch back to jovyan to avoid accidental container runs as root
