@@ -1,9 +1,25 @@
-FROM continuumio/miniconda
+FROM jupyter/minimal-notebook
 
 MAINTAINER Kozo Nishida <knishida@riken.jp>
 
-RUN apt install -y ruby ruby-dev make libtool autoconf g++
-RUN ln -s /usr/bin/libtoolize /usr/bin/libtool # See https://github.com/zeromq/libzmq/issues/1385
+ADD . /workdir
+WORKDIR /workdir
 
-RUN gem install rbczmq iruby pry && ldconfig /var/lib/gems/2.1.0/gems/rbczmq-1.7.9/ext/rbczmq/dst/lib
-RUN /opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && iruby register
+USER root
+
+RUN apt-get update && apt-get install -yq \
+    ruby \
+    ruby-dev \
+    rake \
+    && apt-get clean && \
+    git clone --depth=1 https://github.com/zeromq/libzmq && \
+    git clone --depth=1 https://github.com/zeromq/czmq && \
+    cd libzmq && ./configure && make && make install && \
+    cd czmq && ./configure && make && make install && \
+    gem install cztop specific_install && \
+    gem specific_install https://github.com/SciRuby/iruby.git && \
+    iruby register
+    rm -rf /var/lib/apt/lists/*
+
+# Switch back to jovyan to avoid accidental container runs as root
+USER $NB_USER
