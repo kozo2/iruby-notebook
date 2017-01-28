@@ -12,4 +12,4 @@ docker run -d -p 8888:8888 kozo2/iruby-notebook start-notebook.sh --NotebookApp.
 
 and open a web browser to http://localhost:8888 .
 
-`kozo2/iruby-notebook` is based on Minimal Jupyter Notebook Stack. See https://github.com/jupyter/docker-stacks/tree/master/base-notebook or Our Wiki page for more details on the Docker command options.
+`kozo2/iruby-notebook` is based on Minimal Jupyter Notebook Stack. See https://github.com/jupyter/docker-stacks/tree/master/base-notebook for more details on the Docker command options.
